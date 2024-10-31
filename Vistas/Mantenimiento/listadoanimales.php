@@ -1,2 +1,4 @@
 <?php
-echo ("<p> Listado de animales</p>");
+// Asegúrate de incluir las clases necesarias
+
+?>
