@@ -54,8 +54,8 @@ class Kebab{
     return "Alergenos: \n" .
         "ID: {$this->id}\n" .
         "Nombre: {$this->nombre}\n" .
-        "Descripción: {$this->descripcion}\n" .
-        "Foto: {$this->foto}\n";
+        "Foto: {$this->foto}\n" .
+        "Precio: {$this->precio}\n";
 }
 }
 ?>

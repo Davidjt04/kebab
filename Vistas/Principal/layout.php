@@ -22,18 +22,18 @@
 
 <body>
     <?php
-        require_once './Vistas/Principal/header.php';
+        require_once './vistas/principal/header.php';
     ?>
     <section>
         <div id="cuerpo">
         <?php
-           require_once './Vistas/Principal/enruta.php';
+           require_once './vistas/principal/enruta.php';
         ?>
         </div>
     </section>
 
     <?php
-        require_once './Vistas/Principal/footer.php';
+        require_once './vistas/principal/footer.php';
     ?>
 
 </body>

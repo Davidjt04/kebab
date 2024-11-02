@@ -4,7 +4,7 @@ class Conexion{
 
     public static function getConection(): PDO{
         if (self::$con == null){
-            self::$con = new PDO("mysql:host=localhost;dbname=kebab,'root','root'");
+            self::$con = new PDO("mysql:host=localhost;dbname=Kebab",'root','root');
         }
         return self::$con;
     }
