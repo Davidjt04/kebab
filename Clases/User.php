@@ -3,24 +3,30 @@ class User{
     //Propiedades
     private $id;
     private $nombre;
-    private $precio;
+    private $foto;
     private $contraseña;
     private $direccion;
     private $monedero;
     private $tlf;
-    private $carrito;//cuando trabajo con Json en php será un string y cuando quiera uarlo lo decodificaré
+    private $carrito;
+    private $ubicacion;
+    //cuando trabajo con Json en php será un string y cuando quiera uarlo lo decodificaré
 
     //constructor
-    public function __construct($id,$nombre,$precio,$contraseña,$direccion,$monedero,$tlf,$carrito){
+    public function __construct($id,$nombre,$foto,$contraseña,$direccion,$monedero,$tlf,$carrito,$ubicacion){
         $this->id = $id;
         $this->nombre = $nombre;
-        $this->precio = $precio;
+        $this->foto = $foto;
         $this->contraseña = $contraseña;
         $this->direccion = $direccion;
         $this->monedero = $monedero;
         $this->tlf = $tlf;
         $this->carrito = $carrito;
+        $this->ubicacion = $ubicacion;
+
     }
+
+
 
     //getter and setter
     //ID
@@ -37,12 +43,12 @@ class User{
     }
 
     // Precio
-    public function getPrecio() {
-        return $this->precio;
+    public function getFoto() {
+        return $this->foto;
     }
 
-    public function setPrecio($precio) {
-        $this->precio = $precio;
+    public function setFoto($foto) {
+        $this->foto = $foto;
     }
 
     // Contraseña
@@ -90,17 +96,28 @@ class User{
         $this->carrito = json_encode($carrito); // Codifica el array a JSON
     }
 
+    // Teléfono
+    public function getUbi() {
+        return $this->tlf;
+    }
+
+    public function setUbi($ubicacion) {
+        $this->ubicacion = $ubicacion;
+    }
+
     // Método __toString para representar el objeto como una cadena
     public function __toString() {
         return "User: \n" .
                 "ID: {$this->id}\n" .
                 "Nombre: {$this->nombre}\n" .
-                "Precio: {$this->precio}\n" .
+                "Foto: {$this->foto}\n" .
                 "Contraseña: {$this->contraseña}\n" .
                 "Dirección: {$this->direccion}\n" .
                 "Monedero: {$this->monedero}\n" .
                 "Teléfono: {$this->tlf}\n" .
-                "Carrito: " . json_encode($this->getCarrito()) . "\n"; // Usando getCarrito() para mostrar el carrito
+                "Carrito: " . json_encode($this->getCarrito()) . "\n" .// Usando getCarrito() para mostrar el carrito
+                "Ubicacion: {$this->ubicacion}\n";
+
     }
 }
 

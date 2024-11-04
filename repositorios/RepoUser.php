@@ -1,32 +1,40 @@
 <?php
-class UserRepository {
-    private $users = []; // Simulando la "base de datos" con un array
+require_once ROOT_PATH . 'repositorios/Conexion.php';
+require_once ROOT_PATH . 'clases/User.php';
 
-    // Método para agregar un usuario (para facilitar pruebas)
-    public function add(User $user) {
-        $this->users[$user->getId()] = $user; // Usamos el ID como clave
-    }
-
-    // Método para encontrar un usuario por ID
-    public function findById($id) {
-        if (isset($this->users[$id])) {
-            return $this->users[$id]; // Devuelvo el usuario encontrado
+class repoUser{
+    //FIND BY ID 
+    public function findById($id){
+        //metemos la conexion
+        $conexion = Conexion::getConection();
+        //creamos el objeto stmt
+        $stmt = $conexion->prepare("SELECT * FROM usuario WHERE id = ?");
+        $stmt->bindParam(1,$id,PDO::PARAM_INT);
+        $stmt->execute(); 
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($row){
+            return new User($row['id'],$row['nombre'],$row['foto'],$row['contraseña'],$row['direccion'],$row['monedero'],$row['tlf'],$row['carrito'],$row['ubicacion']);
         }
-        return null; // Devuelvo null si no se encuentra
     }
 
-    // Método para obtener todos los usuarios
-    public function findAll() {
-        return array_values($this->users); // Devuelvo un array con todos los usuarios
-    }
-
-    // Método para eliminar un usuario por ID
-    public function delete($id) {
-        if (isset($this->users[$id])) {
-            unset($this->users[$id]); // Elimina el usuario
-            return true; // Devuelvo true si se eliminó con éxito
+    public function findAll(){
+        $conexion = Conexion::getConection();
+        $stmt = $conexion->query("SELECT * FROM usuario");
+        //creo el array donde meteré todas las tupplas
+        $usuarios = [];
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $usuarios[] = new User($row['id'],$row['nombre'],$row['foto'],$row['contraseña'],$row['direccion'],$row['monedero'],$row['tlf'],$row['carrito'],$row['ubicacion']);
         }
-        return false; // Devuelvo false si no se encuentra el usuario
+        return $usuarios;
+    }
+
+    public function delete($id){
+        $conexion = Conexion::getConection();
+        $stmt = $conexion->prepare('DELETE FROM usuario WHERE id = ?');
+        $stmt->bindParam(1,$id,PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->rowCount()>0;
     }
 }
 ?>

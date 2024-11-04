@@ -9,11 +9,32 @@ class repoAlergenos{
         $conexion = Conexion::getConection();
         //creamos el objeto stmt
         $stmt = $conexion->prepare("SELECT * FROM alergenos WHERE id = ?");
-        $stmt->bindParam("1",$id,PDO::PARAM_INT);
+        $stmt->bindParam(1,$id,PDO::PARAM_INT);
         $stmt->execute(); 
-        //FALTA METER EL FETCH PARA QUE ME ENCUENTRE LA LNEA QUE QUIERO EN LA TABLA 
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($row){
+            return new Alergenos($row['id'],$row['descripcion'],$row['foto'],$row['nombre']);
+        }
+    }
 
-        //ESTO DEBERÑIA DE FUNCIONAR COGIENDO EL MARCADOR DE POSICION POSICIONAL EN LUGAR DE NOMBRADO
+    public function findAll(){
+        $conexion = Conexion::getConection();
+        $stmt = $conexion->query("SELECT * FROM alergenos");
+        //creo el array donde meteré todas las tupplas
+        $alergenos = [];
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $alergenos[] = new Alergenos($row['id'],$row['descripcion'],$row['foto'],$row['nombre']);
+        }
+        return $alergenos;
+    }
+
+    public function delete($id){
+        $conexion = Conexion::getConection();
+        $stmt = $conexion->prepare('DELETE FROM alergenos WHERE id = ?');
+        $stmt->bindParam(1,$id,PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->rowCount()>0;
     }
 }
 ?>
