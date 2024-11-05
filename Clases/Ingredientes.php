@@ -1,16 +1,18 @@
 <?php
 class Ingredientes{
     private $id;
-    private $estado;
-    private $fecha;
+    private $nombre;
+    private $foto;
     private $precio;
+    private $tipo;
 
     // Constructor
-    public function __construct($id, $estado, $fecha, $precio) {
+    public function __construct($id, $nombre, $foto, $precio,$tipo) {
         $this->id = $id;
-        $this->estado = $estado;
-        $this->fecha = $fecha;
+        $this->nombre = $nombre;
+        $this->foto = $foto;
         $this->precio = $precio;
+        $this->tipo = $tipo;
     }
 
     //Getter y setter
@@ -19,43 +21,40 @@ class Ingredientes{
         return $this->id;
     }
 
-    // Getter para estado
-    public function getEstado() {
-        return $this->estado;
+    // Nombre
+    public function getNombre() {
+        return $this->nombre;
     }
 
-    // Setter para estado
-    public function setEstado($estado) {
-        $this->estado = $estado;
+    public function setNombre($nombre) {
+        $this->nombre = $nombre;
     }
 
-    // Getter para fecha
-    public function getFecha() {
-        return $this->fecha;
+    // Foto
+    public function getFoto() {
+        return $this->foto;
     }
 
-    // Setter para fecha
-    public function setFecha($fecha) {
-        $this->fecha = $fecha;
+    public function setFoto($foto) {
+        $this->foto = $foto;
     }
 
-    // Getter para precio
+    // Precio
     public function getPrecio() {
         return $this->precio;
     }
 
-    // Setter para precio
     public function setPrecio($precio) {
         $this->precio = $precio;
     }
 
-    // Método __toString 
-    public function __toString() {
-        return "Alergenos: \n" .
-            "ID: {$this->id}\n" .
-            "Nombre: {$this->nombre}\n" .
-            "Descripción: {$this->descripcion}\n" .
-            "Foto: {$this->foto}\n";
+    // Tipo
+    public function getTipo() {
+        return $this->tipo;
+    }
+
+    public function setTipo($tipo) {
+        $this->tipo = $tipo;
     }
 }
 

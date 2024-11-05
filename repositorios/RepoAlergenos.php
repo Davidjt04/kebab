@@ -36,5 +36,7 @@ class repoAlergenos{
 
         return $stmt->rowCount()>0;
     }
+
+    //BIEN PARA EL MODIFY Y EL CREATE
 }
 ?>
