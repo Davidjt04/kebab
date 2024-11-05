@@ -11,9 +11,9 @@
     margin: 0 auto;
 }
 
-.footer-logo,
-.footer-address,
-.footer-info {
+#logo,
+#direccion,
+#informacion {
     flex: 1;
     text-align: center;
 }
