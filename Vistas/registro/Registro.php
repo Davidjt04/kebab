@@ -1,0 +1,2 @@
+<?php
+echo ("<p> PANTALLA DE REGISTRO DE GANANCIAS</p>");

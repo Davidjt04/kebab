@@ -1,72 +1,89 @@
-#footer{
+#footer {
     background-color: #1a1a1a; /* Fondo oscuro */
     color: #ffffff; /* Texto blanco */
     padding: 20px 0;
     font-family: Arial, sans-serif;
 }
-.footer-container {
+
+.container {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: stretch; /* Esto hará que todos los hijos de .container se estiren para llenar el contenedor */
     max-width: 1200px;
     margin: 0 auto;
 }
 
-#logo,
-#direccion,
-#informacion {
+/* Estilo para cada sección */
+#footer #logo,
+#footer #direccion,
+#footer #informacion {
     flex: 1;
     text-align: center;
 }
 
-.footer-logo img {
-    max-width: 80px;
-    margin-bottom: 10px;
+#footer #direccion, #footer #informacion {
+    padding-top: 5px; /* Ajusta este valor según sea necesario */
+    padding-bottom: 5px; /* Ajusta este valor según sea necesario */
 }
 
-.footer-logo p {
-    font-weight: bold;
+
+/* Estilos específicos para el logo */
+#footer #logo {
+    background-image: url('../recursos/logo/logoKebab.png');
+    background-repeat: no-repeat;
+    background-position: left center; /* Mueve el logo a la izquierda */
+    background-size: contain;
+    width: 100px; /* Ajusta el ancho según el tamaño del logo */
+    height: 100px; /* Ajusta la altura según el tamaño del logo */
+    /* margin: 0; Elimina el centrado automático */
+    margin-top: 2%;
+}
+
+
+/* Estilo para la sección de dirección */
+#footer #direccion {
+
+    margin-right: 60px; /* Agrega separación entre las secciones */
+}
+
+#footer #direccion h1 {
     font-size: 1.2em;
-    margin: 0;
-    color: #ffffff;
-}
-
-.footer-address h4,
-.footer-info h4 {
     font-weight: bold;
-    margin-bottom: 10px;
-    font-size: 1em;
 }
 
-.footer-address p,
-.footer-info ul {
-    font-size: 0.9em;
-    line-height: 1.5;
+#footer #direccion p {
+    margin: 5px 0;
 }
 
-.footer-info ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
+/* Estilo para la sección de información */
+/* #footer #informacion {
+    text-align: right;
+} */
 
-.footer-info li {
-    margin-bottom: 5px;
-}
-
-.footer-info a {
-    color: #c9c9c9; /* Color de los enlaces */
+#footer #informacion a {
+    color: white;
     text-decoration: none;
+    display: block;
+    margin: 5px 0;
 }
 
-.footer-info a:hover {
-    color: #ffffff; /* Cambio de color al pasar el ratón */
+#footer #informacion h1 {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#footer #informacion a:hover {
     text-decoration: underline;
 }
 
-.footer a {
-    color: #ffffff;
-}
+/* Responsividad para pantallas pequeñas
+@media (max-width: 768px) {
+    #footer .container {
+        flex-direction: column;
+        text-align: center;
+    }
 
-.footer a:hover {
-    text-decoration: underline;
-}
+    #footer #direccion, #footer #informacion {
+        text-align: center;
+    }
+} */
