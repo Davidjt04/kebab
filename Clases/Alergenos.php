@@ -1,14 +1,12 @@
 <?php
 class Alergenos {
     private $id;
-    private $descripcion;
     private $foto;
     private $nombre;
 
     // Constructor
-    public function __construct($id, $descripcion, $foto, $nombre) {
+    public function __construct($id, $foto, $nombre) {
         $this->id = $id;
-        $this->descripcion = $descripcion;
         $this->foto = $foto;
         $this->nombre = $nombre;
     }
@@ -16,15 +14,6 @@ class Alergenos {
     // Getter para id
     public function getId() {
         return $this->id;
-    }
-    // Getter para descripcion
-    public function getDescripcion() {
-        return $this->descripcion;
-    }
-
-    // Setter para descripcion
-    public function setDescripcion($descripcion) {
-        $this->descripcion = $descripcion;
     }
 
     // Getter para foto
@@ -37,7 +26,7 @@ class Alergenos {
         $this->foto = $foto;
     }
 
-    // Getter para nombre
+    // Getter para nombrea
     public function getNombre() {
         return $this->nombre;
     }
@@ -49,7 +38,7 @@ class Alergenos {
 
     // Método __toString 
     public function __toString() {
-        return "Alergenos: [ID: {$this->id}, Nombre: {$this->nombre}, Descripcion: {$this->descripcion}, Foto: {$this->foto}]";
+        return "Alergenos: [ID: {$this->id}, Nombre: {$this->nombre}, Foto: {$this->foto}]";
     }
 }
 

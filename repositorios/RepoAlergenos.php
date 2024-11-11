@@ -13,7 +13,7 @@ class repoAlergenos{
         $stmt->execute(); 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if($row){
-            return new Alergenos($row['id'],$row['descripcion'],$row['foto'],$row['nombre']);
+            return new Alergenos($row['id'],$row['foto'],$row['nombre']);
         }
     }
 
@@ -23,7 +23,7 @@ class repoAlergenos{
         //creo el array donde meteré todas las tupplas
         $alergenos = [];
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-            $alergenos[] = new Alergenos($row['id'],$row['descripcion'],$row['foto'],$row['nombre']);
+            $alergenos[] = new Alergenos($row['id'],$row['foto'],$row['nombre']);
         }
         return $alergenos;
     }
@@ -35,6 +35,37 @@ class repoAlergenos{
         $stmt->execute();
 
         return $stmt->rowCount()>0;
+    }
+
+    public function crear($id, $foto, $nombre) {
+        // Verificamos si el alérgeno con este ID ya existe
+        $alergenoExistente = $this->findById($id);
+
+        if ($alergenoExistente) {
+            // Si existe, hacemos un update
+            return $this->update($id, $foto, $nombre);
+        } else {
+            // Si no existe, hacemos un create
+            $conexion = Conexion::getConection();
+            $stmt = $conexion->prepare("INSERT INTO alergenos (id, foto, nombre) VALUES (:id, :foto, :nombre)");
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->bindParam(':foto', $foto, PDO::PARAM_STR);
+            $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+            $stmt->execute();
+
+            return $stmt->rowCount() > 0;
+        }
+    }
+
+    public function update($id, $foto, $nombre) {
+        $conexion = Conexion::getConection();
+        $stmt = $conexion->prepare("UPDATE alergenos SET foto = :foto, nombre = :nombre WHERE id = :id");
+        $stmt->bindParam(':foto', $foto, PDO::PARAM_STR);
+        $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->rowCount() > 0;
     }
 
     //BIEN PARA EL MODIFY Y EL CREATE
