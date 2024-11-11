@@ -16,7 +16,7 @@ class Kebab{
     }
 
     //Getter y setter
-    // Getter para id
+    // Getter para id      
     public function getId() {
         return $this->id;
     }
