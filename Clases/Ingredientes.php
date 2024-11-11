@@ -5,16 +5,18 @@ class Ingredientes{
     private $foto;
     private $precio;
     private $tipo;
-    private array $alergenos = [];
+    private array $alergenos = [];      //array de alergenos por ingrediente
 
     // Constructor
-    public function __construct($id, $nombre, $foto, $precio,$tipo,array $alergenos=[]) {
+    public function __construct($id, $nombre, $foto, $precio,$tipo) {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->foto = $foto;
         $this->precio = $precio;
         $this->tipo = $tipo;
-        $this->alergenos = $alergenos;
+        //rellenamos el array de alergenos del ingrediente
+        // $this->alergenos = RepoIngredientes::obtenerAlergenosPorIngrediente($this->id);
+
     }
 
     //Getter y setter
@@ -60,8 +62,18 @@ class Ingredientes{
     }
 
     //Getter alergeno
-    public function addAlergeno(Alergenos $alergeno) {
-        $this->alergenos[] = $alergeno;
+    public function getAlergenos() {
+        return $this->alergenos;
+    }
+    // Método __toString para representar el objeto como un string
+    public function __toString() {
+        return "Ingrediente [ID: "
+         . $this->getId() . 
+         ", Nombre: " . $this->getNombre() . 
+         ", Foto: " . $this->getFoto() . 
+         ", Precio: " . $this->getPrecio() . 
+         ", Tipo: " . $this->getTipo() . 
+         ", Alergenos: " . implode(", ", $this->getAlergenos()) . "]";
     }
 }
 

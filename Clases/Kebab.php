@@ -4,9 +4,11 @@ class Kebab{
     private $nombre;
     private $foto;
     private $precio;
+    private $descripcion;
+    private array $ingredientes = []; //Array de ingredientes del kebab
 
     // Constructor
-    public function __construct($id, $nombre, $foto, $precio) {
+    public function __construct($id, $nombre, $foto, $precio,$descripcion) {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->foto = $foto;
@@ -49,13 +51,24 @@ class Kebab{
         $this->precio = $precio;
     }
 
+    // Getter para Descripcion
+    public function getDescripcion() {
+        return $this->descripcion;
+    }
+    
+    // Setter para Descripcion
+    public function setDescripcion($descripcion) {
+        $this->descripcion = $descripcion;
+    }
+
     // Método __toString 
     public function __toString() {
     return "Alergenos: \n" .
         "ID: {$this->id}\n" .
         "Nombre: {$this->nombre}\n" .
         "Foto: {$this->foto}\n" .
-        "Precio: {$this->precio}\n";
+        "Precio: {$this->precio}\n" .
+        "Descripcion: {$this->descripcion}\n" ;
 }
 }
 ?>

@@ -7,13 +7,13 @@ class RepoIngredientes {
     // Método para encontrar un ingrediente por su ID
     public function findById($id) {
         $connection = Conexion::getConection();
-        $stmt = $connection->prepare("SELECT * FROM ingredientes WHERE id = ?");
-        $stmt->bindParam("1", $id, PDO::PARAM_INT);
+        $stmt = $connection->prepare("SELECT * FROM ingredientes WHERE id = :id");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new Ingredientes($row['id'], $row['nombre'], $row['foto'], $row['precio']);
+            return new Ingredientes($row['id'], $row['nombre'], $row['foto'], $row['precio'],$row['tipo']);
         }
         return null; // Si no se encuentra el kebab
     }
@@ -40,8 +40,6 @@ class RepoIngredientes {
     return $stmt->rowCount() > 0; // Retorna true si se eliminó algún registro
     }
 
-//......................
-
     // Método para crear o actualizar un ingrediente
     public function crear($id, $nombre, $foto, $precio, $tipo) {
         // Verificamos si el ingrediente con este ID ya existe
@@ -49,7 +47,7 @@ class RepoIngredientes {
 
         if ($ingredienteExistente) {
             // Si existe, hacemos un update
-            return $this->update($id, $nombre, $foto, $precio, $tipo);
+            return $this->update($id, $nombre, $foto, $precio, $tipo, $alergenos = []);
         } else {
             // Si no existe, hacemos un create
             $conexion = Conexion::getConection();
@@ -63,7 +61,9 @@ class RepoIngredientes {
 
             // Si se insertó el ingrediente, insertamos también sus alérgenos
             if ($stmt->rowCount() > 0) {
-                $this->insertarAlergenos($id);
+                foreach ($alergenos as $alergenoId) {
+                    $this->insertarAlergenos($id, $alergenoId);
+                }
                 return true;
             }
             return false;
@@ -71,7 +71,7 @@ class RepoIngredientes {
     }
 
     // Método para actualizar un ingrediente existente
-    public function update($id, $nombre, $foto, $precio, $tipo, array $alergenos = []) {
+    public function update($id, $nombre, $foto, $precio, $tipo, $alergenos) {
         $conexion = Conexion::getConection();
         $stmt = $conexion->prepare("UPDATE ingredientes SET nombre = :nombre, foto = :foto, precio = :precio, tipo = :tipo WHERE id = :id");
         $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
@@ -80,34 +80,49 @@ class RepoIngredientes {
         $stmt->bindParam(':tipo', $tipo, PDO::PARAM_STR);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
+        // Actualizamos los alérgenos asociados
+        //elimino todos lo alergenos
+        $this->eliminarAlergenosAll($id);
 
-         // Actualizamos los alérgenos asociados
-         $this->eliminarAlergenos($id);
-         $this->insertarAlergenos($id, $alergenos);
- 
+        //Inserto los alergenos nuevos 
+        if (is_array($alergenos)) {
+            foreach ($alergenos as $alergenoId) {
+                $this->insertarAlergenos($id, $alergenoId);//AQUI HICE UNA MODIFICACIÓN
+            }
+        }
          return $stmt->rowCount() > 0;
         }
 
 
-        // Método auxiliar para insertar alérgenos
-        private function insertarAlergenos($ingredienteId, array $alergenos) {
+        // Método auxiliar para insertar alérgenos en el caso de que exista el ingrediente
+        private function insertarAlergenos($ingredienteId,$AlergenoId) {
             $conexion = Conexion::getConection();
-            foreach ($alergenos as $alergeno) {
-                $stmt = $conexion->prepare("INSERT INTO ingredientes_has_alergenos (ingrediente_id, alergeno_id) VALUES (:ingrediente_id, :alergeno_id)");
-                $stmt->bindParam(':ingrediente_id', $ingredienteId, PDO::PARAM_INT);
-                $stmt->bindParam(':alergeno_id', $alergeno->getId(), PDO::PARAM_INT);
+            // $id = null;
+            if ($ingredienteId == $id) {
+                $stmt = $conexion->prepare("INSERT INTO ingredientes_has_alergenos (ingredientes_id, alergenos_id) VALUES (:ingredientes_id, :alergenos_id)");
+                $stmt->bindParam(':ingredientes_id', $ingredienteId, PDO::PARAM_INT);
+                $stmt->bindParam(':alergenos_id', $AlergenoId, PDO::PARAM_INT);
                 $stmt->execute();
             }
         }
     
         // Método auxiliar para eliminar todos los alérgenos asociados a un ingrediente
-        private function eliminarAlergenos($ingredienteId) {
+        private function eliminarAlergenosAll($ingredienteId) {
             $conexion = Conexion::getConection();
-            $stmt = $conexion->prepare("DELETE FROM ingredientes_alergenos WHERE ingrediente_id = :ingrediente_id");
-            $stmt->bindParam(':ingrediente_id', $ingredienteId, PDO::PARAM_INT);
+            $stmt = $conexion->prepare("DELETE FROM ingredientes_has_alergenos WHERE ingredientes_id = :ingredientes_id");
+            $stmt->bindParam(':ingredientes_id', $ingredienteId, PDO::PARAM_INT);
             $stmt->execute();
         }
 
+//         // Método para obtener alérgenos asociados a un ingrediente
+//         private function obtenerAlergenosPorIngrediente($ingredienteId) {
+//             $conexion = Conexion::getConection();
+//             $stmt = $conexion->prepare("SELECT alergenos_id FROM ingredientes_has_alergenos WHERE ingredientes_id = :ingredientes_id");
+//             $stmt->bindParam(':ingredientes_id', $ingredienteId, PDO::PARAM_INT);
+//             $stmt->execute();
+//             //devuelvo un array con los alergenos
+//             return $stmt->fetchAll(PDO::FETCH_COLUMN);  
+//         }
 }
 
 ?>
