@@ -4,7 +4,7 @@ require_once ROOT_PATH . 'clases/Ingredientes.php';
 require_once ROOT_PATH . 'repositorios/Conexion.php';
 class RepoIngredientes {
 
-    // Método para encontrar un ingrediente por su ID
+    // // Método para encontrar un ingrediente por su ID
     public function findById($id) {
         $connection = Conexion::getConection();
         $stmt = $connection->prepare("SELECT * FROM ingredientes WHERE id = :id");
@@ -41,7 +41,7 @@ class RepoIngredientes {
     }
 
     // Método para crear o actualizar un ingrediente
-    public function crear($id, $nombre, $foto, $precio, $tipo) {
+    public function crear($id, $nombre, $foto, $precio, $tipo, $alergenos = []) {
         // Verificamos si el ingrediente con este ID ya existe
         $ingredienteExistente = $this->findById($id);
 
@@ -60,13 +60,22 @@ class RepoIngredientes {
             $stmt->execute();
 
             // Si se insertó el ingrediente, insertamos también sus alérgenos
+            //si el array de alergenos esta vacío no lo recorremos 
             if ($stmt->rowCount() > 0) {
-                foreach ($alergenos as $alergenoId) {
-                    $this->insertarAlergenos($id, $alergenoId);
+                if(!empty($alergenos)){
+                    foreach ($alergenos as $alergenoId) {
+                        $this->insertarAlergenos($id, $alergenoId);
+                    }
+                    // return true;
                 }
-                return true;
             }
-            return false;
+            // return false;
+            // Obtenemos el ingrediente actualizado
+            $ingrediente = $this->findById($id); 
+
+            // Llenar el array de alérgenos para el ingrediente
+            $ingrediente->llenarAlergenos();
+            
         }
     }
 
@@ -90,20 +99,27 @@ class RepoIngredientes {
                 $this->insertarAlergenos($id, $alergenoId);//AQUI HICE UNA MODIFICACIÓN
             }
         }
-         return $stmt->rowCount() > 0;
+        // Obtenemos el ingrediente actualizado
+        $ingrediente = $this->findById($id);  
+        // var_dump($ingrediente);
+
+        // Llenar el array de alérgenos para el ingrediente
+        $ingrediente->llenarAlergenos();
+        // var_dump($ingrediente);
+
+        
+        return $stmt->rowCount() > 0;
         }
+
 
 
         // Método auxiliar para insertar alérgenos en el caso de que exista el ingrediente
         private function insertarAlergenos($ingredienteId,$AlergenoId) {
             $conexion = Conexion::getConection();
-            // $id = null;
-            if ($ingredienteId == $id) {
                 $stmt = $conexion->prepare("INSERT INTO ingredientes_has_alergenos (ingredientes_id, alergenos_id) VALUES (:ingredientes_id, :alergenos_id)");
                 $stmt->bindParam(':ingredientes_id', $ingredienteId, PDO::PARAM_INT);
                 $stmt->bindParam(':alergenos_id', $AlergenoId, PDO::PARAM_INT);
                 $stmt->execute();
-            }
         }
     
         // Método auxiliar para eliminar todos los alérgenos asociados a un ingrediente
@@ -114,15 +130,16 @@ class RepoIngredientes {
             $stmt->execute();
         }
 
-//         // Método para obtener alérgenos asociados a un ingrediente
-//         private function obtenerAlergenosPorIngrediente($ingredienteId) {
-//             $conexion = Conexion::getConection();
-//             $stmt = $conexion->prepare("SELECT alergenos_id FROM ingredientes_has_alergenos WHERE ingredientes_id = :ingredientes_id");
-//             $stmt->bindParam(':ingredientes_id', $ingredienteId, PDO::PARAM_INT);
-//             $stmt->execute();
-//             //devuelvo un array con los alergenos
-//             return $stmt->fetchAll(PDO::FETCH_COLUMN);  
-//         }
+        // Método para obtener alérgenos asociados a un ingrediente
+        public function obtenerAlergenosPorIngrediente($ingredienteId) {
+            $conexion = Conexion::getConection();
+            $stmt = $conexion->prepare("SELECT alergenos_id FROM ingredientes_has_alergenos WHERE ingredientes_id = :ingredientes_id");
+            $stmt->bindParam(':ingredientes_id', $ingredienteId, PDO::PARAM_INT);
+            $stmt->execute();
+            //devuelvo un array con los alergenos
+            return $stmt->fetchAll(PDO::FETCH_COLUMN);  
+            
+        }
 }
 
 ?>

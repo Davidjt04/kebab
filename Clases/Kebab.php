@@ -1,18 +1,19 @@
 <?php
 class Kebab{
-    private $id;
-    private $nombre;
-    private $foto;
-    private $precio;
-    private $descripcion;
-    private array $ingredientes = []; //Array de ingredientes del kebab
+    public $id;
+    public $nombre;
+    public $foto;
+    public $precio;
+    public $descripcion;
+    public array $ingredientes = []; //Array de ingredientes del kebab
 
     // Constructor
-    public function __construct($id, $nombre, $foto, $precio,$descripcion) {
+    public function __construct($id, $nombre, $foto, $precio, $descripcion) {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->foto = $foto;
         $this->precio = $precio;
+        $this->descripcion = $descripcion;
     }
 
     //Getter y setter
@@ -59,6 +60,12 @@ class Kebab{
     // Setter para Descripcion
     public function setDescripcion($descripcion) {
         $this->descripcion = $descripcion;
+    }
+
+    // Método para llenar el array de ingredientes
+    public function llenarIngredientes() {
+        $repo = new RepoKebab();
+        $this->ingredientes = $repo->obtenerIngredientesPorKebab($this->id);
     }
 
     // Método __toString 

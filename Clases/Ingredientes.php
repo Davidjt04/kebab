@@ -1,11 +1,11 @@
 <?php
 class Ingredientes{
-    private $id;
-    private $nombre;
-    private $foto;
-    private $precio;
-    private $tipo;
-    private array $alergenos = [];      //array de alergenos por ingrediente
+    public $id;
+    public $nombre;
+    public $foto;
+    public $precio;
+    public $tipo;
+    public array $alergenos = [];      //array de alergenos por ingrediente
 
     // Constructor
     public function __construct($id, $nombre, $foto, $precio,$tipo) {
@@ -14,9 +14,6 @@ class Ingredientes{
         $this->foto = $foto;
         $this->precio = $precio;
         $this->tipo = $tipo;
-        //rellenamos el array de alergenos del ingrediente
-        // $this->alergenos = RepoIngredientes::obtenerAlergenosPorIngrediente($this->id);
-
     }
 
     //Getter y setter
@@ -65,6 +62,15 @@ class Ingredientes{
     public function getAlergenos() {
         return $this->alergenos;
     }
+
+    // Método para llenar el array de alérgenos
+    public function llenarAlergenos() {
+        $repo = new RepoIngredientes();
+        $this->alergenos = $repo->obtenerAlergenosPorIngrediente($this->id);
+    }
+
+
+
     // Método __toString para representar el objeto como un string
     public function __toString() {
         return "Ingrediente [ID: "
