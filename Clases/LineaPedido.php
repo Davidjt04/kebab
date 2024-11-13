@@ -5,6 +5,7 @@ class LineaPedido{
     private $precio;
     private $lineaPedido;
 
+
     // Constructor
     public function __construct($id, $cantidad, $precio, $lineaPedido) {
         $this->id = $id;

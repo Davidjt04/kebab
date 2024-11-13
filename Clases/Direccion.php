@@ -2,11 +2,13 @@
 class Direccion {
     private $id;
     private $direccion;
+    private $usuario_id;
 
     // Constructor
-    public function __construct($id, $direccion) {
+    public function __construct($id, $direccion, $usuario_id) {
         $this->id = $id;
         $this->direccion = $direccion;
+        $this->usuario_id = $usuario_id;
     }
 
     // Getter para $id
@@ -22,6 +24,11 @@ class Direccion {
     // Setter para $direccion
     public function setDireccion($direccion) {
         $this->direccion = $direccion;
+    }
+
+    // Getter para $usuario_id
+    public function getUsuario_id() {
+        return $this->usuario_id;
     }
 
     // Método __toString 
