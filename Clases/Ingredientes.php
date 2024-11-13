@@ -8,7 +8,7 @@ class Ingredientes{
     public array $alergenos = [];      //array de alergenos por ingrediente
 
     // Constructor
-    public function __construct($id, $nombre, $foto, $precio,$tipo) {
+    public function __construct($id, $nombre, $foto, $precio, $tipo) {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->foto = $foto;

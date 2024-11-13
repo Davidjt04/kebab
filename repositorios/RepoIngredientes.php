@@ -25,7 +25,7 @@ class RepoIngredientes {
 
         $ingredientes = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $ingredientes[] = new Ingredientes($row['id'], $row['nombre'], $row['foto'], $row['precio']);
+            $ingredientes[] = new Ingredientes($row['id'], $row['nombre'], $row['foto'], $row['precio'], $row['tipo']);
         }
         return $ingredientes;
     }
@@ -47,7 +47,8 @@ class RepoIngredientes {
 
         if ($ingredienteExistente) {
             // Si existe, hacemos un update
-            return $this->update($id, $nombre, $foto, $precio, $tipo, $alergenos = []);
+            return $this->update($id, $nombre, $foto, $precio, $tipo, $alergenos);
+
         } else {
             // Si no existe, hacemos un create
             $conexion = Conexion::getConection();
@@ -55,7 +56,7 @@ class RepoIngredientes {
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
             $stmt->bindParam(':foto', $foto, PDO::PARAM_STR);
-            $stmt->bindParam(':precio', $precio, PDO::PARAM_STR);
+            $stmt->bindParam(':precio', $precio);
             $stmt->bindParam(':tipo', $tipo, PDO::PARAM_STR);
             $stmt->execute();
 
@@ -80,25 +81,25 @@ class RepoIngredientes {
     }
 
     // Método para actualizar un ingrediente existente
-    public function update($id, $nombre, $foto, $precio, $tipo, $alergenos) {
+    public function update($id, $nombre, $foto, $precio, $tipo, $alergenos=[]) {
         $conexion = Conexion::getConection();
         $stmt = $conexion->prepare("UPDATE ingredientes SET nombre = :nombre, foto = :foto, precio = :precio, tipo = :tipo WHERE id = :id");
         $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
         $stmt->bindParam(':foto', $foto, PDO::PARAM_STR);
-        $stmt->bindParam(':precio', $precio, PDO::PARAM_STR);
+        $stmt->bindParam(':precio', $precio);
         $stmt->bindParam(':tipo', $tipo, PDO::PARAM_STR);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         // Actualizamos los alérgenos asociados
         //elimino todos lo alergenos
         $this->eliminarAlergenosAll($id);
-
+        // var_dump($alergenos);
         //Inserto los alergenos nuevos 
-        if (is_array($alergenos)) {
-            foreach ($alergenos as $alergenoId) {
-                $this->insertarAlergenos($id, $alergenoId);//AQUI HICE UNA MODIFICACIÓN
-            }
+        
+        foreach ($alergenos as $alergenoId) {
+            $this->insertarAlergenos($id, $alergenoId);//AQUI HICE UNA MODIFICACIÓN
         }
+
         // Obtenemos el ingrediente actualizado
         $ingrediente = $this->findById($id);  
         // var_dump($ingrediente);
@@ -109,7 +110,7 @@ class RepoIngredientes {
 
         
         return $stmt->rowCount() > 0;
-        }
+    }
 
 
 
@@ -120,6 +121,7 @@ class RepoIngredientes {
                 $stmt->bindParam(':ingredientes_id', $ingredienteId, PDO::PARAM_INT);
                 $stmt->bindParam(':alergenos_id', $AlergenoId, PDO::PARAM_INT);
                 $stmt->execute();
+                
         }
     
         // Método auxiliar para eliminar todos los alérgenos asociados a un ingrediente
@@ -137,7 +139,8 @@ class RepoIngredientes {
             $stmt->bindParam(':ingredientes_id', $ingredienteId, PDO::PARAM_INT);
             $stmt->execute();
             //devuelvo un array con los alergenos
-            return $stmt->fetchAll(PDO::FETCH_COLUMN);  
+            return $stmt->fetchAll(PDO::FETCH_COLUMN);
+            
             
         }
 }

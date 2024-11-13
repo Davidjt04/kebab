@@ -23,7 +23,7 @@ class repoDireccion{
         //creo el array donde meteré todas las tupplas
         $direcciones = [];
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-            $direcciones[] = new Direccion($row['id'],$row['direccion']);
+            $direcciones[] = new Direccion($row['iddireccion'], $row['direccion'],$row['usuario_id']);
         }
         return $direcciones;
     }

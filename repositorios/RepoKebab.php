@@ -25,7 +25,7 @@ class RepoKebab {
 
         $kebabs = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $kebabs[] = new Kebab($row['id'], $row['nombre'], $row['foto'], $row['precio']);
+            $kebabs[] = new Kebab($row['id'], $row['nombre'], $row['foto'], $row['precio'], $row['descripcion']);
         }
         return $kebabs;
     }
@@ -47,7 +47,7 @@ class RepoKebab {
 
         if ($kebabExistente) {
             // Si existe, hacemos un update
-            return $this->update($id, $nombre, $foto, $precio, $descripcion, $ingredientes = []);
+            return $this->update($id, $nombre, $foto, $precio, $descripcion, $ingredientes);
         } else {
             // Si no existe, hacemos un create
             $conexion = Conexion::getConection();
@@ -55,7 +55,7 @@ class RepoKebab {
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
             $stmt->bindParam(':foto', $foto, PDO::PARAM_STR);
-            $stmt->bindParam(':precio', $precio, PDO::PARAM_STR);
+            $stmt->bindParam(':precio', $precio);       //no tiene la especificación de que tipo de PDO es ya que no hay tipo DOUBLE que es el que necesito
             $stmt->bindParam(':descripcion', $descripcion, PDO::PARAM_STR);
             $stmt->execute();
 
@@ -86,7 +86,7 @@ class RepoKebab {
         $stmt = $conexion->prepare("UPDATE kebab SET nombre = :nombre, foto = :foto, precio = :precio, descripcion = :descripcion WHERE id = :id");
         $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
         $stmt->bindParam(':foto', $foto, PDO::PARAM_STR);
-        $stmt->bindParam(':precio', $precio, PDO::PARAM_STR);
+        $stmt->bindParam(':precio', $precio);
         $stmt->bindParam(':descripcion', $tipo, PDO::PARAM_STR);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();

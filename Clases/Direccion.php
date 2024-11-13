@@ -1,8 +1,8 @@
 <?php
 class Direccion {
-    private $id;
-    private $direccion;
-    private $usuario_id;
+    public $id;
+    public $direccion;
+    public $usuario_id;
 
     // Constructor
     public function __construct($id, $direccion, $usuario_id) {
