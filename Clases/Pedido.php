@@ -1,9 +1,11 @@
 <?php
 class Pedido{
-    private $id;
-    private $estado;
-    private $fecha;
-    private $precio;
+    public $id;
+    public $estado;
+    public $fecha;
+    public $precio;
+    public array $lineasPedido = [];      //array de lineasPedido por Pedido
+
 
     // Constructor
     public function __construct($id, $estado, $fecha, $precio) {
@@ -44,6 +46,12 @@ class Pedido{
 
     public function setPrecio($precio) {
         $this->precio = $precio;
+    }
+
+    // Método para llenar el array de alérgenos
+    public function llenarAlergenos() {
+        $repo = new RepoLineaPedido();
+        $this->lineasPedido = $repo->obtenerLineaPedidoPorPedido($this->id);
     }
     //__toString
     public function __toString() {

@@ -1,17 +1,20 @@
 <?php
 class LineaPedido{
-    private $id;
-    private $cantidad;
-    private $precio;
-    private $lineaPedido;
+    public $id;
+    public $cantidad;
+    public $precio;
+    public $lineaPedido;
+    public $kebab;
 
 
     // Constructor
-    public function __construct($id, $cantidad, $precio, $lineaPedido) {
+    public function __construct($id, $cantidad, $precio, $lineaPedido, $kebab) {
         $this->id = $id;
         $this->cantidad = $cantidad;
         $this->precio = $precio;
         $this->lineaPedido = $lineaPedido;
+        $this->kebab = $kebab;
+
     }
 
     //Getter y setter

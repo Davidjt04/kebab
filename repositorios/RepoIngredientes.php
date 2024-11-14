@@ -114,35 +114,35 @@ class RepoIngredientes {
 
 
 
-        // Método auxiliar para insertar alérgenos en el caso de que exista el ingrediente
-        private function insertarAlergenos($ingredienteId,$AlergenoId) {
-            $conexion = Conexion::getConection();
-                $stmt = $conexion->prepare("INSERT INTO ingredientes_has_alergenos (ingredientes_id, alergenos_id) VALUES (:ingredientes_id, :alergenos_id)");
-                $stmt->bindParam(':ingredientes_id', $ingredienteId, PDO::PARAM_INT);
-                $stmt->bindParam(':alergenos_id', $AlergenoId, PDO::PARAM_INT);
-                $stmt->execute();
-                
-        }
-    
-        // Método auxiliar para eliminar todos los alérgenos asociados a un ingrediente
-        private function eliminarAlergenosAll($ingredienteId) {
-            $conexion = Conexion::getConection();
-            $stmt = $conexion->prepare("DELETE FROM ingredientes_has_alergenos WHERE ingredientes_id = :ingredientes_id");
+    // Método auxiliar para insertar alérgenos en el caso de que exista el ingrediente
+    private function insertarAlergenos($ingredienteId,$AlergenoId) {
+        $conexion = Conexion::getConection();
+            $stmt = $conexion->prepare("INSERT INTO ingredientes_has_alergenos (ingredientes_id, alergenos_id) VALUES (:ingredientes_id, :alergenos_id)");
             $stmt->bindParam(':ingredientes_id', $ingredienteId, PDO::PARAM_INT);
+            $stmt->bindParam(':alergenos_id', $AlergenoId, PDO::PARAM_INT);
             $stmt->execute();
-        }
+            
+    }
 
-        // Método para obtener alérgenos asociados a un ingrediente
-        public function obtenerAlergenosPorIngrediente($ingredienteId) {
-            $conexion = Conexion::getConection();
-            $stmt = $conexion->prepare("SELECT alergenos_id FROM ingredientes_has_alergenos WHERE ingredientes_id = :ingredientes_id");
-            $stmt->bindParam(':ingredientes_id', $ingredienteId, PDO::PARAM_INT);
-            $stmt->execute();
-            //devuelvo un array con los alergenos
-            return $stmt->fetchAll(PDO::FETCH_COLUMN);
-            
-            
-        }
+    // Método auxiliar para eliminar todos los alérgenos asociados a un ingrediente
+    private function eliminarAlergenosAll($ingredienteId) {
+        $conexion = Conexion::getConection();
+        $stmt = $conexion->prepare("DELETE FROM ingredientes_has_alergenos WHERE ingredientes_id = :ingredientes_id");
+        $stmt->bindParam(':ingredientes_id', $ingredienteId, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    // Método para obtener alérgenos asociados a un ingrediente
+    public function obtenerAlergenosPorIngrediente($ingredienteId) {
+        $conexion = Conexion::getConection();
+        $stmt = $conexion->prepare("SELECT alergenos_id FROM ingredientes_has_alergenos WHERE ingredientes_id = :ingredientes_id");
+        $stmt->bindParam(':ingredientes_id', $ingredienteId, PDO::PARAM_INT);
+        $stmt->execute();
+        //devuelvo un array con los alergenos
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+        
+        
+    }
 }
 
 ?>

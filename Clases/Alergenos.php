@@ -1,8 +1,8 @@
 <?php
 class Alergenos {
-    private $id;
-    private $foto;
-    private $nombre;
+    public $id;
+    public $foto;
+    public $nombre;
 
     // Constructor
     public function __construct($id, $foto, $nombre) {

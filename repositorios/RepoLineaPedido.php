@@ -37,32 +37,41 @@ class repoLineaPedido{
         return $stmt->rowCount()>0;
     }
 
-    public function crear($id, $cantidad, $precio, $lineaPedido) {
+    public function crear($id, $cantidad, $precio, $lineaPedido, $pedido_id, $kebab) {
         //verifico si la linea de pedido ya existe
         $lineaPedidoExistente = $this->findById($id);
 
-        if ($alergenoExistente) {
+        if ($lineaPedidoExistente) {
             // Si existe, hacemos un update
-            return $this->update($id, $foto, $nombre);
+            return $this->update($id, $cantidad, $precio, $lineaPedido, $pedido_id,$kebab);
         } else {
             // Si no existe, hacemos un create
-            //valido el JSON que le voy a meter
-            //hago el creato como en los demas create 
-            //meto el JSON sin pasarlo a string
-
+            $conexion = Conexion::getConection();
+            $stmt = $conexion->prepare("INSERT INTO lineapedido (id, cantidad, precio, lineaPedido, pedido_id) VALUES (:id, :cantidad, :precio, :lineaPedido, :pedido_id)");
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->bindParam(':cantidad', $cantidad, PDO::PARAM_INT);
+            $stmt->bindParam(':precio', $precio);
+            $jsonLineaPedido= json_encode($kebab);
+            $stmt->bindParam(':lineaPedido', $jsonLineaPedido);
+            $stmt->bindParam(':pedido_id', $pedido_id, PDO::PARAM_INT);
+            $stmt->execute();
         }
 
 
     }
 
     //función update
-    public function update($id, $cantidad , $precio, $lineaPedido){
-        //valido que el json que se inserta es correcto
-        //meto los datos en las tablas como los demás update
-        //meto el JSON sin pasarlo a string
-
-        
-
+    public function update($id, $cantidad , $precio, $lineaPedido, $pedido_id,$kebab){
+        $conexion = Conexion::getConection();
+        $stmt = $conexion->prepare("UPDATE lineapedido SET id = :id, cantidad = :cantidad, precio = :precio, lineaPedido = :lineaPedido, pedido_id = :pedido_id WHERE id = :id");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':cantidad', $cantidad, PDO::PARAM_INT);
+        $stmt->bindParam(':precio', $precio);
+        $jsonLineaPedido= json_encode($kebab);
+        $stmt->bindParam(':lineaPedido', $jsonLineaPedido);
+        $stmt->bindParam(':pedido_id', $pedido_id, PDO::PARAM_INT);       
+        $stmt->execute();
+        return $stmt->rowCount() > 0;
     }
 
 

@@ -1,15 +1,15 @@
 <?php
 class User{
     //Propiedades
-    private $id;
-    private $nombre;
-    private $foto;
-    private $contraseña;
-    private $direccion;
-    private $monedero;
-    private $tlf;
-    private $carrito;
-    private $ubicacion;
+    public $id;
+    public $nombre;
+    public $foto;
+    public $contraseña;
+    public $direccion = [];
+    public $monedero;
+    public $tlf;
+    public $carrito;
+    public $ubicacion;
     //cuando trabajo con Json en php será un string y cuando quiera uarlo lo decodificaré
 
     //constructor
