@@ -29,20 +29,33 @@
 
 <body>
     <?php
-        require_once './vistas/principal/header.php';
+        $dr = ROOT_PATH;
+        $dr . 'vistas/principal/header.php';
+        // if (file_exists($archivo)) {
+        //     require_once $archivo;
+        //     echo "El archivo header.php fue cargado exitosamente.";
+        // } else {
+        //     echo "Error: No se pudo encontrar el archivo header.php en la ruta especificada.";
+        // }
+
+
+
+        require_once $dr.'vistas/principal/header.php';
+
     ?>
     <section>
         <div id="cuerpo">
         <?php
-           require_once './vistas/principal/enruta.php';
+           require_once  $dr . 'vistas/principal/enruta.php';
         ?>
         </div>
     </section>
 
     <?php
-        require_once './vistas/principal/footer.php';
+        require_once $dr .'vistas/principal/footer.php';
     ?>
 
 </body>
+
 
 </html>

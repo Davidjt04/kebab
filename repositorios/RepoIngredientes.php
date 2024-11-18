@@ -1,7 +1,6 @@
 <?php
-
-require_once ROOT_PATH . 'clases/Ingredientes.php';
-require_once ROOT_PATH . 'repositorios/Conexion.php';
+include '../repositorios/Conexion.php';
+include '../clases/Ingredientes.php';
 class RepoIngredientes {
 
     // // Método para encontrar un ingrediente por su ID

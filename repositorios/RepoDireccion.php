@@ -1,6 +1,4 @@
 <?php
-require_once ROOT_PATH . 'repositorios/Conexion.php';
-require_once ROOT_PATH . 'clases/Direccion.php';
 
 class repoDireccion{
     //FIND BY ID 

@@ -3,8 +3,8 @@ echo ("<p> PANTALLA DE ESTADO DEL PEDIDO </p>");
 // require_once ROOT_PATH . 'repositorios/RepoDireccion.php';
 // require_once ROOT_PATH . 'clases/Direccion.php';
 
-// require_once ROOT_PATH . 'repositorios/RepoIngredientes.php';
-// require_once ROOT_PATH . 'clases/Ingredientes.php';
+require_once ROOT_PATH . 'repositorios/RepoIngredientes.php';
+require_once ROOT_PATH . 'clases/Ingredientes.php';
 
 // require_once ROOT_PATH . 'repositorios/RepoKebab.php';
 // require_once ROOT_PATH . 'clases/Kebab.php';
@@ -15,23 +15,23 @@ echo ("<p> PANTALLA DE ESTADO DEL PEDIDO </p>");
 // require_once ROOT_PATH . 'repositorios/RepoLineaPedido.php';
 // require_once ROOT_PATH . 'clases/LineaPedido.php';
 
-require_once ROOT_PATH . 'repositorios/RepoPedido.php';
-require_once ROOT_PATH . 'clases/Pedido.php';
+// require_once ROOT_PATH . 'repositorios/RepoPedido.php';
+// require_once ROOT_PATH . 'clases/Pedido.php';
 
 //Conexion a la base de datos 
 // $repoAlergeno = new RepoKebab();
 // $repoAlergeno = new RepoDireccion();
-// $repoAlergeno = new RepoIngredientes();
+$repoAlergeno = new RepoIngredientes();
 // $repoAlergeno = new RepoAlergenos();
 // $repoAlergeno = new RepoLineaPedido();
-$repoAlergeno = new RepoPedido();
+// $repoAlergeno = new RepoPedido();
 
 
-// echo ($repoAlergeno->crear(2,'calle nose',1));
+echo ($repoAlergeno->crear(3,'aergh ','adfh',1.24,'Vegetal',[1,2]));
 // var_dump($repoAlergeno->findById(1));
 
-// var_dump($repoAlergeno->findAll());
-var_dump($repoAlergeno->delete(1));
+// var_dump($repoAlergeno->findAll(1));
+// var_dump($repoAlergeno->delete(1));
 // $json = [
 //     "pedido_id" => 101,
 //     "fecha" => "2024-11-14",
@@ -67,5 +67,4 @@ var_dump($repoAlergeno->delete(1));
 
 
 // $repoAlergeno->crear(3,'de la casa','fofo',6,'heero');
-
 

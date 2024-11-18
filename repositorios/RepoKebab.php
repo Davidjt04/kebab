@@ -1,7 +1,4 @@
 <?php
-
-require_once ROOT_PATH . 'clases/Kebab.php';
-require_once ROOT_PATH . 'repositorios/Conexion.php';
 class RepoKebab {
 
     // Método para encontrar un Kebab por su ID
