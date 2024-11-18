@@ -139,9 +139,131 @@ class RepoIngredientes {
         $stmt->execute();
         //devuelvo un array con los alergenos
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
-        
-        
     }
+
+    
+    /*metodo que haga un join con la tabla de ingredientes y la de alergenos 
+    cuando tenga el select mirar en la tabla muchos muchos el los alergenos que esten con 
+    el id de ingrediente 1 se meten en su array */
+    public function ingredienteCompleto($id) {
+        $connection = Conexion::getConection();
+        $stmt = $connection->prepare("SELECT i.id as Ingrediente_id, i.nombre, i.foto, i.precio, i.tipo, a.id as Alergeno_id
+                                    from ingredientes i join ingredientes_has_alergenos ia on i.id = ia.ingredientes_id 
+                                    join alergenos a on a.id = ia.alergenos_id;");
+        $stmt->execute();
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);  // Usamos fetchAll() para obtener todas las filas
+        $ingredientes = []; // Array para almacenar los objetos Ingredientes
+        $ingrediente = null;
+
+        //array vacio de Ingredientes
+        if(is_numeric($id)){
+
+            //recorro la consulta y cojo todas las tuplas donde el id se repita
+            $alergenos = [];
+            foreach ($rows as $row) {
+                // Verificamos que estamos procesando el ingrediente correcto
+                    // Si el objeto ingrediente aún no ha sido creado, lo inicializamos
+                    if (!$ingrediente) {
+                        $ingrediente = new Ingredientes(
+                            $row['Ingrediente_id'], 
+                            $row['nombre'], 
+                            $row['foto'], 
+                            $row['precio'], 
+                            $row['tipo']
+                        );
+                    }
+        
+                    // Añadimos el alérgeno al array
+                    $alergeno = [
+                        'id' => $row['Alergeno_id'],
+                    ];
+                    $alergenos[] = $alergeno;
+            }
+            foreach ($alergenos as $alergeno) {
+                $ingrediente->addAlergeno($alergeno);
+            }                 
+        }else {
+            foreach($rows as $row){
+                //cojo el id del ingrediente 
+            }
+
+
+
+            // // Cuando el id no es un número (por ejemplo, "todos")
+            // foreach ($rows as $row) {
+            //     $ingrediente_id = $row['Ingrediente_id'];
+    
+            //     // Si el ingrediente no ha sido agregado al array, lo creamos
+            //     if (!isset($ingredientes[$ingrediente_id])) {
+            //         $ingredientes[$ingrediente_id] = new Ingredientes(
+            //             $row['Ingrediente_id'],
+            //             $row['nombre'],
+            //             $row['foto'],
+            //             $row['precio'],
+            //             $row['tipo']
+            //         );
+            //     }
+    
+            //     // Añadimos el alérgeno al ingrediente
+            //     $ingredientes[$ingrediente_id]->addAlergeno($row['Alergeno_id']);
+            // }
+    
+            // // Si $id es "todos", retornamos todos los ingredientes con sus alérgenos
+            // $resultado = array_values($ingredientes);  // Retorna un array de todos los ingredientes con alérgenos
+        }
+    }
+
+
+        // $rows = $stmt->fetch(PDO::FETCH_ASSOC);
+        // //array vacio de Ingredientes
+        // if(is_numeric($id)){
+        //     //recorro la consulta y cojo todas las tupplas donde el id se repita
+        //     $alergenos = [];
+        //     foreach($rows as $row){
+        //         //cojo el id del o los alergnos 
+        //         $alergenos = $row['Alergeno_id'];
+        //         if(!isset($ingrediente)){
+        //             $ingrediente = new Ingredientes($row['Ingrediente_id'],$row['nombre'],$row['foto'],$row['precio'],$row['tipo']);
+        //         }
+        //         //meto el array de alergenos en el ingrediente
+        //         $ingrediente->addAlergeno($alergenos);
+        //     }
+        // }else{
+        //     //recorro $rows
+        //     foreach($rows as $row){
+        //         $Ingredinete_id = $row['Ingrediente_id'];
+        //         $alergenos = $row['Alergeno_id'];
+        //         while($Ingredinete_id == $row['Ingrediente_id']){
+        //             if(!isset($ingrediente)){//devuelve verdadero si es falso
+        //                 $ingrediente = new Ingredientes($row['Ingrediente_id'],$row['nombre'],$row['foto'],$row['precio'],$row['tipo']);
+        //                 //cuando el ingrediente_id sea distinto al anta
+
+        //             }
+        //         }
+
+        //     }
+
+
+        //     //sacamos todos los ingredientes con sus alergenos 
+
+
+        // }
+
+
+
+
+
+        // if (is_numeric($id)) {
+        //     return $row = new Ingredientes($row['id'], $row['nombre'], $row['foto'], $row['precio'],$row['tipo'],$row['ingredientes_id'],$row);
+        // }
+        // elseif($id =="todos"){
+        //     $rows = [];
+        //     $rows []=new Ingredientes($row['id'], $row['nombre'], $row['foto'], $row['precio'],$row['tipo'],$row['id']);
+        // }else{
+        //     throw new Exception ('Error no se ha podido encontrar el ingrediente');
+        // }
+        // return $row; // Si no se encuentra el kebab
+    // }
 }
 
 ?>

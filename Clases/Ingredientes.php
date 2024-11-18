@@ -69,6 +69,11 @@ class Ingredientes{
         $this->alergenos = $repo->obtenerAlergenosPorIngrediente($this->id);
     }
 
+    public function addAlergeno($alergeno) {
+        // Agregamos el alérgeno al array de alérgenos del ingrediente
+        $this->alergenos[] = $alergeno;
+    }
+
 
 
     // Método __toString para representar el objeto como un string

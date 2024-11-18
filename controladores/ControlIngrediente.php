@@ -8,14 +8,14 @@ include '../repositorios/RepoIngredientes.php';
                 //es un numero
                 //cogemos la tupla de ese numero que es el id
                 $repoIngredientes = new RepoIngredientes();
-                $Ingrediente = $repoIngredientes->findById($cadena);
+                $Ingrediente = $repoIngredientes->ingredienteCompleto($cadena);
                 $resultado = $Ingrediente;
 
             }elseif($cadena =="todos"){
                 //es "todos"
                 //cogo todas las tuplas 
                 $repoIngredientes = new RepoIngredientes();
-                $Ingredientes[] = $repoIngredientes->findAll($cadena);
+                $Ingredientes[] = $repoIngredientes->ingredienteCompleto($cadena);
                 $resultado = $Ingredientes;
 
             }else{
