@@ -3,6 +3,15 @@
     color: #ffffff; /* Texto blanco */
     padding: 20px 0;
     font-family: Arial, sans-serif;
+
+    /*Para que el footer se quede abajo*/
+    color: #ffffff; /* Texto en blanco */
+    padding: 20px 0; /* Espaciado superior e inferior */
+    display: flex;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    font-size: 16px; /* Tamaño base del texto */
+    margin-top: auto; /* Esto empuja el footer al fondo de la página */
 }
 
 .container {

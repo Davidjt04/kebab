@@ -1,8 +1,5 @@
-<?php
-/*Aqui ponemos todo el estilo de la pagina*/
-
-echo ("<p> PANTALLA DE INGREDIENTES</p>");
-
-/*Aqui el ajax que pide ingredientes*/
-
-?>
+<link rel="stylesheet" href="./css/EstiloHeader.css">
+<!-- meto todo el cuerpo que tenga la pantalla de ingredientes -->
+<body>
+    
+</body>
