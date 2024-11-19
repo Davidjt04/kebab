@@ -210,7 +210,7 @@ class RepoIngredientes {
 
             foreach($IDIngredientes as $ID){
             $arrayIngredientes[] = $this->ingredienteCompletoPorId($ID);
-            echo json_encode($arrayIngredientes);
+            json_encode($arrayIngredientes);
 
             }
 

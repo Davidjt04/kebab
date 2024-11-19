@@ -7,11 +7,15 @@ $request = $_SERVER['REQUEST_METHOD'];
 $control = new controlIngrediente();
 switch ($request) {
     case 'GET':
-        $cadena = $_GET['valor'];
+        $cadena = $_GET['id'];
+        // var_dump($cadena);
         // var_dump($cadena);
         //Creo un objeto controlador
         $tupla = $control->cogerDatos($cadena);
+        // var_dump($tupla);
         // echo json_encode($tupla);
+        $jsonTupla = json_encode($tupla);
+        echo $jsonTupla;
         break;
     case 'POST':  
         //me va a modificar y a crear el objeto 
@@ -19,6 +23,7 @@ switch ($request) {
         //llamo al controlador para ya guardar en la base de datos 
         json_encode($datos);
        $control->meterDatos($datos);
+       
         break;
     case 'DELETE':
         //Va a borrar los datos 

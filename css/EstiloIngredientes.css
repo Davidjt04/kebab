@@ -1,0 +1,74 @@
+.contenedor {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* 1 fracción por tarjeta, mínimo 250px */
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Estilo de la tarjeta */
+.Creador {
+    /* width: 200px;
+    height: 200px; */
+    background-color: #ddd; /* Gris claro */
+    border: 2px solid #ccc; /* Borde gris claro */
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #333; /* Color del texto oscuro */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+
+}
+.Creador:hover{
+    transform: translateY(-10px);
+}
+
+.tarjeta {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.tarjeta img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.cuerpoTarjeta {
+    padding: 15px;
+}
+
+.tarjeta h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.tarjeta p {
+    font-size: 14px;
+    color: #555;
+}
+
+.tarjeta button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tarjeta button:hover {
+    background-color: #0056b3;
+}
+
+/* Efecto de hover para la tarjeta */
+.tarjeta:hover {
+    transform: translateY(-10px);
+}
