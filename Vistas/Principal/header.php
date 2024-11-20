@@ -1,4 +1,15 @@
 <header>
+    <!--ENLAZO LOS ESTILOS  -->
+    <!-- FOOTER -->
+    <link rel="stylesheet" href="./css/EstiloFooter.css">
+
+    <!-- HEADER -->
+    <link rel="stylesheet" href="./css/EstiloHeader.css">
+
+    <!-- INGREDIENTES -->
+    <link rel="stylesheet" href="./css/EstiloIngredientes.css">
+
+
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">LOGO</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"

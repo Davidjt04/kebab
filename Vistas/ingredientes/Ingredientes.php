@@ -1,5 +1,11 @@
 <body>
-    <div>
+    <div class = "contenedor">
+        <div class="Creador">
+            CREAR
+        </div >
+        <div id = "contenedorTarjetasDinamicas">
+        
+        </div>
         
         <!-- <script>hola();</script> -->
     </div>
@@ -22,9 +28,7 @@
     <h1 style="text-align: center; margin-top: 20px;">INGREDIENTES</h1>
 
     <div class="contenedor">
-        <div class="Creador">
-            CREAR
-        </div>
+
         <div class="tarjeta">
             <img src="https://via.placeholder.com/250" alt="Imagen 1">
             <div class="cuerpoTarjeta">

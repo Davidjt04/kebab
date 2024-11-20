@@ -7,12 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>SANIMAL S.L.</title>
 
-    <!--ENLAZO LOS ESTILOS  -->
-    <!-- FOOTER -->
-    <link rel="stylesheet" href="./css/EstiloFooter.css">
-
-    <!-- HEADER -->
-    <link rel="stylesheet" href="./css/EstiloHeader.css">
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
@@ -30,7 +24,7 @@
 <body>
     <?php
         $dr = ROOT_PATH;
-        $dr . 'vistas/principal/header.php';
+        // $dr . 'vistas/principal/header.php';
         // if (file_exists($archivo)) {
         //     require_once $archivo;
         //     echo "El archivo header.php fue cargado exitosamente.";
