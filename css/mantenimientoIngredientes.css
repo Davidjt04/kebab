@@ -1,0 +1,139 @@
+/* Reset de estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.row {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.image-section {
+    flex: 1;
+    min-height: 200px;
+    background-color: #e0e0e0;
+    border: 2px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.form-section {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-section input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.drag-drop-row {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.drag-zone, .drop-zone {
+    flex: 1;
+    min-height: 150px;
+    border: 2px dashed #bbb;
+    background: #f9f9f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 16px;
+}
+
+.drag-zone {
+    background-color: #f1f8ff;
+}
+
+.buttons-row {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.buttons-row button {
+    padding: 15px 25px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buttons-row button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsividad para tablet */
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-section {
+        width: 100%;
+    }
+
+    .form-section {
+        width: 100%;
+    }
+
+    .drag-drop-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Responsividad para móviles */
+@media (max-width: 480px) {
+    .drag-zone, .drop-zone {
+        min-height: 120px;
+        font-size: 14px;
+    }
+
+    .buttons-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .buttons-row button {
+        width: 100%;
+        max-width: 200px;
+    }
+}
