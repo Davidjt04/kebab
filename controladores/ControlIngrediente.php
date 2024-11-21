@@ -11,7 +11,7 @@ include '../repositorios/RepoIngredientes.php';
                 $Ingrediente = $repoIngredientes->ingredienteCompletoPorId($cadena);
                 $resultado = $Ingrediente;
 
-            }else{
+            }elseif($cadena == 'todos'){
                 //es "todos"
                 //cogo todas las tuplas 
                 $repoIngredientes = new RepoIngredientes();

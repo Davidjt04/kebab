@@ -1,8 +1,8 @@
 <body>
     <div class = "contenedor">
-        <div class="Creador">
+    <a href = "vistas/ingredientes/mantenimientoIngrediente.php"><div class="Creador">
             CREAR
-        </div >
+        </div ></a>
         <div id = "contenedorTarjetasDinamicas">
         
         </div>

@@ -1,14 +1,4 @@
 <!--Página de mantenimiento-->
- <!DOCTYPE html>
- <html lang="en">
- <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link  rel="stylesheet" href = "/2DAW/SERVIDOR/kebab/css/mantenimientoIngredientes.css">
-    <title>Document</title>
- </head>
-
-</head>
 <body>
     <!-- Primera Sección -->
     <div class="row">
@@ -39,5 +29,6 @@
         <button>Guardar</button>
         <button>Cancelar</button>
     </div>
+    <!-- <script src = "/2DAW/SERVIDOR/kebab/js/IngredientesJS.js"></script> -->
 </body>
  </html>

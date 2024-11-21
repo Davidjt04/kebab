@@ -38,10 +38,8 @@ window.addEventListener('load',  function () { // Cambiamos a una función asín
 
 function cogerIngrediente(id) {
     // Hacer la solicitud HTTP
+    // console.log(id);
     return fetch(`${url}?id=${id}`, {
-        headers: {
-            'Content-Type': 'application/json'
-        },
         method: 'GET'
     })
     .then(response => {
@@ -75,28 +73,9 @@ function cogerIngrediente(id) {
     //----------------------------------------------------------------
     //cuando se pulse la targeta me lleva a la pagina de mantenimiento de ingrediente
 
-
-
-/*Aqui tendre los addlistener de las tarjetas*/
-
-function primeratarjeta(){
-    // document.addEventListener('click', cogerIngrediente($id));
-    //creo el div donde se va a alojar
-    const divTargeta = document.createElement('div');
-    //le añado la clase que va a tener
-    divTargeta.classList.add('tarjeta');
-
-    //le añado un texto 
-    const texto = document.createElement('h3');
-    texto.textContent = 'title';
-    //añado el titulo al cuerpo de la tarjeta
-    divTargeta.appendChild(texto);
-
-}
-
-
 function crearTarjeta(id){
     //Llamo al json que me devuelve la request get
+    // console.log(id);
     cogerIngrediente(id).then(datosjson => {
     // let datosjson = cogerIngrediente($id);
     // console.log(datosjson);
@@ -107,18 +86,12 @@ function crearTarjeta(id){
     // for(objeto in arrayDatos){
     //     // console.log(`${objeto}:${arrayDatos[objeto]}`);
     //     valores = `${objeto}:${arrayDatos[objeto]}`;
-
-
-    //     // console.log(valores);
-    //     // for(valores in objeto){
-    // //         console.log(objeto[clave]);
-    // //     };
-    // }
+    let tarjeta;
     /*SI ARRAY DATOS ES UN NUMERO SE HACE DE ESTA FORMA SI ARRAY DATOS ES UN ARRAY
     DE OBJETOS SE TIENE QUE HACER DE OTRA*/
     if(!Array.isArray(arrayDatos)){
    //voy metiendo los valores en un innerhtml que será el de la tarjeta
-   let tarjeta = `<div class="tarjeta">
+   tarjeta = `<div class="tarjeta">
    <img src="${arrayDatos.foto}" alt="${arrayDatos.nombre}">
    <div class="cuerpoTarjeta">
        <h3>${arrayDatos.nombre}</h3>
@@ -127,15 +100,36 @@ function crearTarjeta(id){
        <button>Modificar</button>
    </div>`;
 
-
-   // arrayDatos.forEach(dato => {
-   //     console.log(dato.id);
-   // });
    let div = document.getElementById('contenedorTarjetasDinamicas');
-   console.log(div);
    div.innerHTML = tarjeta;
+
    }else{
+    let subarray = arrayDatos[0];
     //METER EL CODIGO PARA TRATAR CON UN ARRAY DE OBJETOS 
+    //recorro el array de datos 
+    subarray.forEach((objeto) =>{
+        // console.log(objeto.foto);
+        // console.log(`Elemento en índice ${index}:`, objeto);
+        // console.log(objeto);
+        // console.log(objeto[1].nombre);
+        // let routeImg = "http://localhost/2DAW/SERVIDOR/kebab/recursos/img/";
+        // ${routeImg}
+        tarjeta = `<div class="tarjeta">
+            <img src="${objeto.foto}" alt="${objeto.nombre}">
+            <div class="cuerpoTarjeta">
+                <h3>${objeto.nombre}</h3>
+                <p>Precio:${objeto.precio}</p>
+        
+                <button>Modificar</button>
+            </div>`;
+    div = document.getElementById('contenedorTarjetasDinamicas');
+    let newDiv = document.createElement('div');
+    newDiv.classList.add('newDiv');
+    div.appendChild(newDiv);
+    newDiv.innerHTML = tarjeta;
+
+    })
+
 
    }
     })
@@ -192,7 +186,7 @@ function crearTarjeta(id){
 
     // return contenedor;
 }
-crearTarjeta(1);
+crearTarjeta("todos");
 // let json = cogerIngrediente(1);
 // console.log(JSON.parse(json));
 

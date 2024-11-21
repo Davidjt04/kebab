@@ -1,26 +1,45 @@
+/* Contenedor principal */
 .contenedor {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* 1 fracción por tarjeta, mínimo 250px */
-    gap: 20px;
+    display: flex;                  /* Usamos flex para alinearlos horizontalmente */
+    justify-content: flex-start;    /* Alinea los elementos al principio (izquierda) */
+    align-items: flex-start;        /* Alinea los elementos verticalmente arriba */
+    gap: 20px;                      /* Espacio entre los elementos */
     padding: 20px;
+}
+
+#contenedorTarjetasDinamicas {
+    display: flex;                  /* Flexbox para organizar las tarjetas */
+    flex-wrap: wrap;                /* Las tarjetas se envuelven si es necesario */
+    gap: 20px;                      /* Espacio entre las tarjetas */
+    padding: 20px;
+    box-sizing: border-box;         /* Asegura que el padding no afecte el tamaño total */
+    flex-grow: 1;                   /* El contenedor de las tarjetas ocupa el espacio restante */
+}
+
+.newDiv {
+    display: flex;
+    flex-direction: row;            /* Alinea las tarjetas de izquierda a derecha */
+    flex-wrap: wrap;                /* Las tarjetas se envuelven si es necesario */
+    gap: 20px;                      /* Espacio entre las tarjetas */
+    width: 250px;                   /* Ancho fijo de las tarjetas */
+    height: 400px;                  /* Altura fija de las tarjetas */
 }
 
 /* Estilo de la tarjeta */
 .Creador {
-    /* width: 200px;
-    height: 200px; */
-    background-color: #ddd; /* Gris claro */
-    border: 2px solid #ccc; /* Borde gris claro */
+    background-color: #ddd;         /* Gris claro */
+    border: 2px solid #ccc;         /* Borde gris claro */
     border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 24px;
-    color: #333; /* Color del texto oscuro */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
-
+    color: #333;                  /* Color del texto */
+    width: 250px;                   /* Ancho fijo para el div "CREAR" */
+    height: 400px;                  /* Altura fija */
 }
-.Creador:hover{
+
+.Creador:hover {
     transform: translateY(-10px);
 }
 
@@ -31,6 +50,8 @@
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
+    width: 250px; /* Ancho fijo para las tarjetas */
+    height: auto;  /* Altura automática para ajustarse al contenido */
 }
 
 .tarjeta img {
