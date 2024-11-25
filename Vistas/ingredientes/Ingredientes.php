@@ -10,6 +10,7 @@
         <!-- <script>hola();</script> -->
     </div>
     <script src = "/2DAW/SERVIDOR/kebab/js/IngredientesJS.js"></script>
+    <script src = "/2DAW/SERVIDOR/kebab/js/crearIngredientes.js"></script>
     <!-- <script src = "/2DAW/SERVIDOR/kebab/js/funcionesIngrediente.js"></script> -->
 </body>
 
